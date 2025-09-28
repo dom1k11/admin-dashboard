@@ -10,3 +10,10 @@ export async function fetchUsers(): Promise<User[]> {
   if (!res.ok) throw new Error("Failed to fetch users");
   return res.json();
 }
+export async function deleteUnverified(): Promise<User[]> {
+  const res = await fetch(`${API_URL}/unverified`, {
+    method: "DELETE",
+  });
+  if (!res.ok) throw new Error("Failed to delete unverified users");
+  return res.json();
+}

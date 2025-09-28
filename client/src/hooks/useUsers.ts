@@ -5,15 +5,14 @@ import { fetchUsers } from "../services/userService";
 export function useUsers() {
   const [users, setUsers] = useState<User[]>([]);
 
+  async function loadUsers() {
+    const data = await fetchUsers();
+    setUsers([...data]); 
+  }
+
   useEffect(() => {
-    fetchUsers()
-    
-      .then(setUsers)
-      .catch((err) => console.error("Failed to fetch users", err));
-
-
+    loadUsers();
   }, []);
 
-
-  return { users };
+  return { users, loadUsers };
 }
