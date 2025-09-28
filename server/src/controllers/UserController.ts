@@ -1,4 +1,4 @@
-import { getAllUsers, deleteUsers } from '../queries/users';
+import { getAllUsers, deleteUsers, deleteUnverifiedUsers } from '../queries/users';
 import { controller } from '../utils/controllerWrapper';
 
 export const handleGetUsers = controller(async (req, res) => {
@@ -6,7 +6,7 @@ export const handleGetUsers = controller(async (req, res) => {
   res.json(result.rows);
 });
 
-export const handleDeleteUsers = controller(async (req, res) => {
+export const handleDelete = controller(async (req, res) => {
   const { id } = req.body;
   if (!Array.isArray(id) || !id.length) {
     res.status(400).json({ error: 'id array required' });
@@ -20,3 +20,9 @@ export const handleDeleteUsers = controller(async (req, res) => {
   }
   res.json(result.rows);
 });
+
+export const handleDeleteUnverified = controller(async (req, res) => {
+  const result = await deleteUnverifiedUsers();
+  res.json(result.rows);
+});
+

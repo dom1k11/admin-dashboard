@@ -1,9 +1,13 @@
 import { Router } from 'express';
-import { handleDeleteUsers, handleGetUsers } from '../controllers/UserController';
+import {
+  handleDelete,
+  handleGetUsers,
+  handleDeleteUnverified,
+} from '../controllers/UserController';
 
 const router = Router();
 
 router.get('/users', handleGetUsers);
-router.delete('/users', handleDeleteUsers)
-
+router.delete('/users', handleDelete);
+router.delete('/unverified', handleDeleteUnverified);
 export default router;
