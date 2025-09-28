@@ -27,3 +27,22 @@ export async function deleteSelected(id: number[]): Promise<User[]> {
   if (!res.ok) throw new Error("Failed to delete selected users");
   return res.json();
 }
+
+export async function blockSelected(id: number[]): Promise<User[]> {
+  const res = await fetch(`${API_URL}/block`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id }),
+  });
+  if (!res.ok) throw new Error("Failed to block selected users");
+  return res.json();
+}
+export async function unblockSelected(id: number[]): Promise<User[]> {
+  const res = await fetch(`${API_URL}/unblock`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id }),
+  });
+  if (!res.ok) throw new Error("Failed to unblock selected users");
+  return res.json();
+}

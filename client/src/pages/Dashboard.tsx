@@ -2,7 +2,12 @@ import Navbar from "../components/Navbar/Navbar";
 import UserTable from "../components/UserTable/UserTable";
 import Header from "../components/Header/Header";
 import { useUsers } from "../hooks/useUsers";
-import { deleteSelected, deleteUnverified } from "../services/userService";
+import {
+  unblockSelected,
+  blockSelected,
+  deleteSelected,
+  deleteUnverified,
+} from "../services/userService";
 import { useState } from "react";
 
 const Dashboard = () => {
@@ -20,10 +25,24 @@ const Dashboard = () => {
     setSelectedIds([]);
   }
 
+  async function handleBlockSelected() {
+    await blockSelected(selectedIds);
+    await loadUsers();
+    setSelectedIds([]);
+  }
+
+  async function handleUnblockSelected() {
+    await unblockSelected(selectedIds);
+    await loadUsers();
+    setSelectedIds([]);
+  }
+
   return (
     <>
       <Header />
       <Navbar
+        blockSelected={handleBlockSelected}
+        unblockSelected={handleUnblockSelected}
         removeSelected={handleRemoveSelected}
         removeUnverified={handleRemoveUnverified}
       />
