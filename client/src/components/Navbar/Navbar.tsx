@@ -4,9 +4,10 @@ import unlock from "../../assets/unlock.svg";
 
 type NavbarProps = {
   removeUnverified: () => void;
+  removeSelected: () => void;
 };
 
-const Navbar = ({ removeUnverified }: NavbarProps) => {
+const Navbar = ({ removeUnverified, removeSelected }: NavbarProps) => {
   return (
     <nav>
       <div className="btn-toolbar mb-3">
@@ -18,7 +19,10 @@ const Navbar = ({ removeUnverified }: NavbarProps) => {
           <img className="icon" src={unlock} />
           Unblock
         </button>
-        <button className="btn btn-outline-danger me-2">
+        <button
+          onClick={removeSelected}
+          className="btn btn-outline-danger me-2"
+        >
           <img className="icon" src={trashBin} />
         </button>
         <button

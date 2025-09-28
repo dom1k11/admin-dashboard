@@ -17,3 +17,13 @@ export async function deleteUnverified(): Promise<User[]> {
   if (!res.ok) throw new Error("Failed to delete unverified users");
   return res.json();
 }
+
+export async function deleteSelected(id: number[]): Promise<User[]> {
+  const res = await fetch(`${API_URL}/users`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id }),
+  });
+  if (!res.ok) throw new Error("Failed to delete selected users");
+  return res.json();
+}
