@@ -1,7 +1,7 @@
 type UserProps = {
-  task: string;
+  user: string;
 };
 
-export default function User({ task }: UserProps) {
-  return <p>{task}</p>;
+export default function User({ user }: UserProps) {
+  return <p>{user}</p>;
 }

@@ -1,23 +1,8 @@
-import { useState } from "react";
+import { useUsers } from "../../hooks/useUsers";
 import "./UserTable.css";
 
 const UserTable = () => {
-  const [users] = useState([
-    {
-      id: 1,
-      name: "Dominik Sedusov",
-      email: "dominik@example.com",
-      status: "Active",
-      last_seen: "5 minutes ago",
-    },
-    {
-      id: 2,
-      name: "Pavel Lebedev",
-      email: "p.lebedev@example.com",
-      status: "Blocked",
-      last_seen: "10 minutes ago",
-    },
-  ]);
+  const { users } = useUsers();
 
   return (
     <div className="user-table-container">
@@ -42,7 +27,7 @@ const UserTable = () => {
               <td>{u.name}</td>
               <td>{u.email}</td>
               <td className={u.status.toLowerCase()}>{u.status}</td>
-              <td>{u.last_seen}</td>
+              <td>{new Date(u.last_login).toLocaleString()}</td>
             </tr>
           ))}
         </tbody>
