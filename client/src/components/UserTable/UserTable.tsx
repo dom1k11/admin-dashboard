@@ -18,19 +18,25 @@ const UserTable = () => {
             <th>Last Seen</th>
           </tr>
         </thead>
-        <tbody>
-          {users.map((u) => (
-            <tr key={u.id}>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td>{u.name}</td>
-              <td>{u.email}</td>
-              <td className={u.status.toLowerCase()}>{u.status}</td>
-              <td>{new Date(u.last_login).toLocaleString()}</td>
-            </tr>
-          ))}
-        </tbody>
+       <tbody>
+  {users.map((u) => (
+    <tr
+      key={u.id}
+      className={u.status.toLowerCase() === "blocked" ? "row-blocked" : ""}
+    >
+      <td>
+        <input type="checkbox" />
+      </td>
+      <td className={u.status.toLowerCase() === "blocked" ? "name-blocked" : ""}>
+        {u.name}
+      </td>
+      <td>{u.email}</td>
+      <td className={u.status.toLowerCase()}>{u.status}</td>
+      <td>{new Date(u.last_login).toLocaleString()}</td>
+    </tr>
+  ))}
+</tbody>
+
       </table>
     </div>
   );
