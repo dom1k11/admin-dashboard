@@ -1,9 +1,5 @@
 import type { User } from "../types/user";
-
-const API_URL =
-  window.location.hostname === "localhost"
-    ? "http://localhost:3000"
-    : import.meta.env.VITE_API_URL;
+import { API_URL } from "../constants/api_url";
 
 export async function fetchUsers(): Promise<User[]> {
   const res = await fetch(`${API_URL}/users`);

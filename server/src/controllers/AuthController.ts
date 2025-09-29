@@ -11,5 +11,5 @@ export const handleRegister = controller(async (req, res) => {
     email: email,
     password: hashedPassword,
   });
-  res.json(result.rows);
+  res.json(result.rows[0]);
 });

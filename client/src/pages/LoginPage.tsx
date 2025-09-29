@@ -6,13 +6,18 @@ const LoginPage = () => {
   function handleLogin() {
     navigate("/dashboard");
   }
+  function handleGoToRegister(){
+    navigate("/register")
+  }
 
   return (
     <div className="login-container">
       <h1>Login</h1>
       <input type="text" placeholder="Name" />
       <input type="password" placeholder="Password" />
-      <button className="btn btn-primary" onClick={handleLogin}>Sign in</button>
+      <button className="btn btn-primary" onClick={handleLogin}>Sign in</button>< br></br>
+      <button className="btn btn-light" onClick={handleGoToRegister}>New here? Sign up</button>
+      
     </div>
   );
 };
