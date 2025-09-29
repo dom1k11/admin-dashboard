@@ -1,24 +1,53 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LoginForm from "../components/LoginForm/LoginForm";
 
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  function handleLogin() {
-    navigate("/dashboard");
+  const [form, setForm] = useState({ name: "", password: "" });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  function handleChange(field: "name" | "password", value: string) {
+    setForm({ ...form, [field]: value });
   }
-  function handleGoToRegister(){
-    navigate("/register")
+
+  async function handleLogin() {
+    setError("");
+    setLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Login failed");
+      }
+
+      await res.json();
+      navigate("/dashboard");
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
-    <div className="login-container">
-      <h1>Login</h1>
-      <input type="text" placeholder="Name" />
-      <input type="password" placeholder="Password" />
-      <button className="btn btn-primary" onClick={handleLogin}>Sign in</button>< br></br>
-      <button className="btn btn-light" onClick={handleGoToRegister}>New here? Sign up</button>
-      
-    </div>
+    <LoginForm
+      name={form.name}
+      password={form.password}
+      loading={loading}
+      error={error}
+      onChange={handleChange}
+      onSubmit={handleLogin}
+      onGoToRegister={() => navigate("/register")}
+    />
   );
 };
 
