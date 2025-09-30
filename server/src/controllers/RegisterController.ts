@@ -2,7 +2,7 @@ import { registerUser } from '../queries/registration.js';
 import { controller } from '../utils/controllerWrapper.js';
 import { sendVerificationEmail } from '../utils/mailer.js';
 import { hashPassword } from '../services/hashService.js';
-import { generateAndSaveToken } from '../services/tokenService.js';
+import { generateAndSaveToken } from '../services/verifyTokenService.js';
 export const handleRegister = controller(async (req, res) => {
   const { name, email, password } = req.body;
   const hashedPassword = await hashPassword(password);
