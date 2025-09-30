@@ -39,3 +39,10 @@ export async function verifyUser(id: number) {
     [id],
   );
 }
+
+export async function findUserStatus(id: number) {
+  const query = await pool.query('SELECT status FROM users WHERE id = $1', [
+    id,
+  ]);
+  return query.rows[0]?.status ?? null;
+}
