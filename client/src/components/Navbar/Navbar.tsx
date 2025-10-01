@@ -1,44 +1,45 @@
 import trashBin from "../../assets/trashbin.svg";
 import lock from "../../assets/lock.svg";
 import unlock from "../../assets/unlock.svg";
-
-type NavbarProps = {
-  removeUnverified: () => void;
-  removeSelected: () => void;
-  blockSelected: () => void;
-  unblockSelected: () => void;
-};
+import { NavbarProps } from "../../types/navbarProps";
+import NavbarButton from "./NavbarButton";
 
 const Navbar = ({
   removeUnverified,
   removeSelected,
   blockSelected,
   unblockSelected,
+  hasSelection,
 }: NavbarProps) => {
   return (
     <nav>
       <div className="btn-toolbar mb-3">
-        <button onClick={blockSelected} className="btn btn-danger me-2">
-          <img className="icon" src={lock} />
-          Block
-        </button>
-        <button onClick={unblockSelected} className="btn btn-success me-2">
-          <img className="icon" src={unlock} />
-          Unblock
-        </button>
-        <button
+        <NavbarButton
+          onClick={blockSelected}
+          icon={lock}
+          label="Block"
+          variant="btn-danger"
+          disabled={!hasSelection}
+        />
+        <NavbarButton
+          onClick={unblockSelected}
+          icon={unlock}
+          label="Unblock"
+          variant="btn-success"
+          disabled={!hasSelection}
+        />
+        <NavbarButton
           onClick={removeSelected}
-          className="btn btn-outline-danger me-2"
-        >
-          <img className="icon" src={trashBin} />
-        </button>
-        <button
+          icon={trashBin}
+          variant="btn-outline-danger"
+          disabled={!hasSelection}
+        />
+        <NavbarButton
           onClick={removeUnverified}
-          className="btn btn-outline-danger me-2"
-        >
-          <img className="icon" src={trashBin} />
-          Unverified
-        </button>
+          icon={trashBin}
+          label="Unverified"
+          variant="btn-outline-danger"
+        />
       </div>
     </nav>
   );

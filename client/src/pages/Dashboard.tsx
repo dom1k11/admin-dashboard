@@ -45,6 +45,7 @@ const Dashboard = () => {
         unblockSelected={handleUnblockSelected}
         removeSelected={handleRemoveSelected}
         removeUnverified={handleRemoveUnverified}
+        hasSelection={selectedIds.length > 0}
       />
       <UserTable
         selectedIds={selectedIds}

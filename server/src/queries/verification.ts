@@ -2,7 +2,7 @@ import pool from '../db';
 
 export async function markUserVerified(userId: number) {
   const result = await pool.query(
-    "UPDATE users SET status = 'verified' WHERE id = $1 RETURNING *",
+    "UPDATE users SET status = 'active' WHERE id = $1 RETURNING *",
     [userId],
   );
   return result.rows[0];
