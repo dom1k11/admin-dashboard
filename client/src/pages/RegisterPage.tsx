@@ -31,10 +31,17 @@ const RegisterPage = () => {
     }
 
     try {
+      console.log("Register started!");
+
       await register(form.name, form.email, form.password);
+      console.log("Register finished");
+
+      console.log("redirecting")
       setSuccess(
         "✅ Registration successful! Check your email and verify to log in!"
       );
+      console.log("redirecting finished!");
+
       setTimeout(() => navigate("/login"), 3000);
     } catch (err) {
       console.error("Registration failed", err);
