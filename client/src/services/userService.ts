@@ -1,44 +1,31 @@
 import type { User } from "../types/user";
-import { API_URL } from "../constants/api_url";
+import { apiWrapper } from "../utils/apiWrapper";
 
-export async function fetchUsers(): Promise<User[]> {
-  const res = await fetch(`${API_URL}/users`);
-  if (!res.ok) throw new Error("Failed to fetch users");
-  return res.json();
+export function fetchUsers(): Promise<User[]> {
+  return apiWrapper("/users");
 }
-export async function deleteUnverified(): Promise<User[]> {
-  const res = await fetch(`${API_URL}/unverified`, {
+
+export function deleteUnverified(): Promise<User[]> {
+  return apiWrapper("/unverified", { method: "DELETE" });
+}
+
+export function deleteSelected(id: number[]): Promise<User[]> {
+  return apiWrapper("/users", {
     method: "DELETE",
+    body: JSON.stringify({ id }),
   });
-  if (!res.ok) throw new Error("Failed to delete unverified users");
-  return res.json();
 }
 
-export async function deleteSelected(id: number[]): Promise<User[]> {
-  const res = await fetch(`${API_URL}/users`, {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json" },
+export function blockSelected(id: number[]): Promise<User[]> {
+  return apiWrapper("/block", {
+    method: "PATCH",
     body: JSON.stringify({ id }),
   });
-  if (!res.ok) throw new Error("Failed to delete selected users");
-  return res.json();
 }
 
-export async function blockSelected(id: number[]): Promise<User[]> {
-  const res = await fetch(`${API_URL}/block`, {
+export function unblockSelected(id: number[]): Promise<User[]> {
+  return apiWrapper("/unblock", {
     method: "PATCH",
-    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id }),
   });
-  if (!res.ok) throw new Error("Failed to block selected users");
-  return res.json();
-}
-export async function unblockSelected(id: number[]): Promise<User[]> {
-  const res = await fetch(`${API_URL}/unblock`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id }),
-  });
-  if (!res.ok) throw new Error("Failed to unblock selected users");
-  return res.json();
 }

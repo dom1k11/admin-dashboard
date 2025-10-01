@@ -12,8 +12,8 @@ export const handleLogin = controller(async (req, res) => {
   if (!(await validatePassword(password, user.password)))
     return res.status(401).json({ error: 'Invalid password' });
 
-  if (user.status !== 'verified')
-    return res.status(403).json({ error: 'Account not verified' });
+  if (user.status !== 'active')
+    return res.status(403).json({ error: 'Account not active' });
 
   res.json({
     message: 'User logged in.',

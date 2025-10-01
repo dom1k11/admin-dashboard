@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/LoginForm/LoginForm";
-
+import { login } from "../services/loginService";
 const LoginPage = () => {
   const navigate = useNavigate();
 
@@ -18,18 +18,7 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3000/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Login failed");
-      }
-
-      await res.json();
+      await login(form.name, form.password);
       navigate("/dashboard");
     } catch (err: any) {
       setError(err.message);
