@@ -16,7 +16,7 @@ export const handleRegister = controller(async (req, res) => {
   const user = result.rows[0];
   const token = await generateAndSaveToken(user.id);
 
-  sendVerificationEmail(user.email, token).catch(err =>
+  await sendVerificationEmail(user.email, token).catch(err =>
     console.error("Email send error:", err)
   );
 
