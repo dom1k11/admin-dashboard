@@ -13,7 +13,7 @@ export function validateRegistrationForm(
 
   if (!name.trim()) errors.name = "Name is required";
   if (!validateEmail(email)) errors.email = "Invalid email address";
-  if (password.length < 3)
+  if (password.length < 1)
     errors.password = "Password must be at least 3 characters";
 
   return errors;
