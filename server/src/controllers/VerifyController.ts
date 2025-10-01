@@ -7,8 +7,10 @@ export const handleVerify = controller(async (req, res) => {
   const { token } = req.params;
 
   const record = await findUserByToken(token);
-  if (!record)
-    return res.status(400).json({ error: 'Invalid or expired token' });
+  if (!record) {
+    res.status(400).json({ error: 'Invalid or expired token' });
+    return;
+  }
 
   await markUserVerified(record.user_id);
   await deleteToken(token);

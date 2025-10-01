@@ -7,13 +7,20 @@ export const handleLogin = controller(async (req, res) => {
   const { name, password } = req.body;
 
   const user = await findUserByName(name);
-  if (!user) return res.status(400).json({ error: 'User not found' });
+  if (!user) {
+    res.status(400).json({ error: 'User not found' });
+    return;
+  }
 
-  if (!(await validatePassword(password, user.password)))
-    return res.status(401).json({ error: 'Invalid password' });
+  if (!(await validatePassword(password, user.password))) {
+    res.status(401).json({ error: 'Invalid password' });
+    return;
+  }
 
-  if (user.status !== 'active')
-    return res.status(403).json({ error: 'Account not active' });
+  if (user.status !== 'active') {
+    res.status(403).json({ error: 'Account not active' });
+    return;
+  }
 
   const updatedUser = await updateLastLogin(user.id);
 
