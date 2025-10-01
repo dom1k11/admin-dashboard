@@ -1,6 +1,7 @@
 import type { User } from "../../types/user";
 import "./UserTable.css";
 import { toggleSelection } from "../../helpers/selection";
+import { formatDistanceToNow } from "date-fns";
 
 type UserTableProps = {
   users: User[];
@@ -59,7 +60,16 @@ const UserTable = ({ users, selectedIds, setSelectedIds }: UserTableProps) => {
               </td>
               <td>{u.email}</td>
               <td className={u.status.toLowerCase()}>{u.status}</td>
-              <td>{new Date(u.last_login).toLocaleString()}</td>
+             <td
+  data-bs-toggle="tooltip"
+  data-bs-placement="top"
+  title={u.last_login ? new Date(u.last_login).toLocaleString() : "Never"}
+>
+  {u.last_login
+    ? formatDistanceToNow(new Date(u.last_login), { addSuffix: true })
+    : "Never"}
+</td>
+
             </tr>
           ))}
         </tbody>
