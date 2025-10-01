@@ -8,8 +8,10 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+const baseUrl = process.env.APP_URL || 'http://localhost:3000';
+
 export async function sendVerificationEmail(to: string, token: string) {
-  const verifyUrl = `http://localhost:3000/auth/verify/${token}`;
+  const verifyUrl = `${baseUrl}/auth/verify/${token}`;
   await transporter.sendMail({
     from: '"Admin Dashboard" <no-reply@example.com>',
     to,
