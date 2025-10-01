@@ -6,14 +6,19 @@ import { generateAndSaveToken } from '../services/verifyTokenService.js';
 export const handleRegister = controller(async (req, res) => {
   const { name, email, password } = req.body;
   const hashedPassword = await hashPassword(password);
+
   const result = await registerUser({
     name,
     email,
     password: hashedPassword,
   });
+
   const user = result.rows[0];
   const token = await generateAndSaveToken(user.id);
-  await sendVerificationEmail(user.email, token);
 
-  res.json({ message: 'User registered. Verification email sent.', user });
+  sendVerificationEmail(user.email, token).catch(err =>
+    console.error("Email send error:", err)
+  );
+
+  res.json({ message: "User registered. Verification email scheduled.", user });
 });
