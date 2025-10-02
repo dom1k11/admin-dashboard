@@ -3,6 +3,7 @@ import lock from "../../assets/lock.svg";
 import unlock from "../../assets/unlock.svg";
 import { NavbarProps } from "../../types/navbarProps";
 import NavbarButton from "./NavbarButton";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({
   removeUnverified,
@@ -10,8 +11,9 @@ const Navbar = ({
   blockSelected,
   unblockSelected,
   hasSelection,
-  hasBlockedSelection
+  hasBlockedSelection,
 }: NavbarProps) => {
+  const navigate = useNavigate();
   return (
     <nav>
       <div className="btn-toolbar mb-3">
@@ -41,6 +43,16 @@ const Navbar = ({
           label="Unverified"
           variant="btn-outline-danger"
         />
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            localStorage.removeItem("token");
+            navigate("/login");
+          }}
+        >
+          Logout
+        </button>
+        
       </div>
     </nav>
   );
