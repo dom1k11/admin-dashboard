@@ -2,14 +2,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/LoginForm/LoginForm";
 import { login } from "../services/loginService";
+
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({ name: "", password: "" });
+  const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  function handleChange(field: "name" | "password", value: string) {
+  function handleChange(field: "email" | "password", value: string) {
     setForm({ ...form, [field]: value });
   }
 
@@ -18,7 +19,7 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
-      await login(form.name, form.password);
+      await login(form.email, form.password);
       navigate("/dashboard");
     } catch (err: any) {
       setError(err.message);
@@ -29,7 +30,7 @@ const LoginPage = () => {
 
   return (
     <LoginForm
-      name={form.name}
+      email={form.email}
       password={form.password}
       loading={loading}
       error={error}

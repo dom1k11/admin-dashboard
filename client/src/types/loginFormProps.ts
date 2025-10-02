@@ -1,10 +1,9 @@
-
 export type LoginFormProps = {
-  name: string;
+  email: string;
   password: string;
   loading: boolean;
   error: string;
-  onChange: (field: "name" | "password", value: string) => void;
+  onChange: (field: "email" | "password", value: string) => void;
   onSubmit: () => void;
   onGoToRegister: () => void;
 };

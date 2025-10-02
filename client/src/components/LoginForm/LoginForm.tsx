@@ -1,9 +1,8 @@
 import "./LoginForm.css";
-
 import { LoginFormProps } from "../../types/loginFormProps";
 
 const LoginForm = ({
-  name,
+  email,
   password,
   loading,
   error,
@@ -15,13 +14,13 @@ const LoginForm = ({
     <div className="login-container">
       <h1>Login</h1>
       <label>
-        Name
+        Email
         <input
-          id="name"
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => onChange("name", e.target.value)}
+          id="email"
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => onChange("email", e.target.value)}
         />
       </label>
 
