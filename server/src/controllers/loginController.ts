@@ -17,7 +17,7 @@ export const handleLogin = controller(async (req, res) => {
     return;
   }
 
-  if (user.status !== 'active') {
+  if (user.status == 'blocked') {
     res.status(403).json({ error: 'Account not active' });
     return;
   }

@@ -9,8 +9,10 @@ export async function login(name: string, password: string): Promise<User> {
     body: JSON.stringify({ name, password }),
   });
 
-  if (!res.ok) throw new Error("Failed to login");
- 
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.error || "failed login");
+  }
 
   const data: LoginResponse = await res.json();
 
