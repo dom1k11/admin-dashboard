@@ -10,6 +10,7 @@ const Navbar = ({
   blockSelected,
   unblockSelected,
   hasSelection,
+  hasBlockedSelection
 }: NavbarProps) => {
   return (
     <nav>
@@ -26,7 +27,7 @@ const Navbar = ({
           icon={unlock}
           label="Unblock"
           variant="btn-success"
-          disabled={!hasSelection}
+          disabled={!hasBlockedSelection}
         />
         <NavbarButton
           onClick={removeSelected}

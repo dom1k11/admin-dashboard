@@ -4,4 +4,5 @@ export type NavbarProps = {
   blockSelected: () => void;
   unblockSelected: () => void;
   hasSelection: boolean;
+  hasBlockedSelection: boolean;
 };

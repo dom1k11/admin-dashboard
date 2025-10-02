@@ -46,6 +46,9 @@ const Dashboard = () => {
         removeSelected={handleRemoveSelected}
         removeUnverified={handleRemoveUnverified}
         hasSelection={selectedIds.length > 0}
+        hasBlockedSelection={users.some(
+          (u) => selectedIds.includes(u.id) && u.status === "blocked"
+        )}
       />
       <UserTable
         selectedIds={selectedIds}
