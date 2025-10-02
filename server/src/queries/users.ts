@@ -26,10 +26,15 @@ export async function blockUsers(id: number[]) {
 
 export async function unblockUsers(id: number[]) {
   if (!id.length) return { rows: [], rowCount: 0 } as any;
-  const query = `UPDATE users
-                 SET status = 'active'
-                 WHERE id = ANY($1)
-                 RETURNING *`;
+
+  const query = `
+    UPDATE users
+    SET status = 'active'
+    WHERE id = ANY($1)
+      AND status = 'blocked'
+    RETURNING *;
+  `;
+
   return pool.query(query, [id]);
 }
 
