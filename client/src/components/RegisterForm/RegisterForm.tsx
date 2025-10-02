@@ -1,6 +1,6 @@
 import "./RegisterForm.css";
 import { RegisterFormProps } from "../../types/registerFormProps";
-
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = ({
   name,
@@ -11,6 +11,8 @@ const RegisterForm = ({
   onChange,
   onSubmit,
 }: RegisterFormProps) => {
+  const navigate = useNavigate();
+
   return (
     <div className="register-container">
       <h1>Sign up</h1>
@@ -50,6 +52,9 @@ const RegisterForm = ({
 
       <button className="btn btn-primary" onClick={onSubmit}>
         Sign up
+      </button>
+      <button className="btn btn-light" onClick={() => navigate("/login")}>
+        Back to login
       </button>
 
       {success && <p style={{ color: "green" }}>{success}</p>}
